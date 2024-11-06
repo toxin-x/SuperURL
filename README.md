@@ -1,4 +1,5 @@
 # SuperURL
-an api to clean and fix URLs
+An api to clean and fix URLs
 
-URLs is from https://github.com/walterl/uroute
+URL package is from https://github.com/walterl/uroute
+Filter rules are from https://github.com/ClearURLs/Rules
