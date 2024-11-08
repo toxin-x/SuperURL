@@ -7,7 +7,11 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import re
 from typing import Optional
+from mangum import Mangum
 app = FastAPI()
+
+
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
@@ -28,7 +32,7 @@ class Resp(BaseModel):
     
 
 async def refresh_rules():
-    urls.download_rules_data("rules.json")
+    # urls.download_rules_data("rules.json")
     global rules 
     rules = urls.load_cleaning_rules("rules.json")
 # download rules on startup
@@ -44,7 +48,11 @@ async def root(request: Request):
 # url = input("url to clean: ")
 # print(urls.clean_url(rules= rules, url=url))
 
-@app.post("/api/clean/")
+@app.get("/api/shortcut")
+async def shortcut():
+    return {"ios-version":0.1, "ios-link": "N/A"}
+
+@app.post("/api/clean")
 async def clean(resp: Resp):
     print(resp)
     await refresh_rules()
@@ -52,7 +60,7 @@ async def clean(resp: Resp):
         output = resp.url
     else: 
         return "Error: URL empty"
-    if not output.startswith("http"):
+    if not re.match("http", output, re.I):
         output = "https://" + output
     if resp.clean:
         output = urls.clean_url(rules, output)
@@ -77,7 +85,7 @@ async def clean(resp: Resp):
         
         elif re.search(r"^(https?:\/\/)?(www\.)?twitter\.com", output):
             output = re.sub(r"x\.com", f"{twitter_format[resp.twitter_format]}fxtwitter.com", output, 1)
-       
+
     #instagram
         
         #d = media only, g = media and @only, 
@@ -93,7 +101,7 @@ async def clean(resp: Resp):
             output = re.sub(r"tiktok\.com", "vxtiktok.com", output, 1)
     #pixiv
         elif re.search(r"^(https?:\/\/)?(www\.)?pixiv\.com", output):
-            output = re.sub(r"pixiv\.com", "phixiv.com", output, 1)
+            output = re.sub(r"pixiv\.com", "phixiv.net", output, 1)
             output += f"/{resp.pixiv_index}"
     #bsky 
         elif re.search(r"^(https?:\/\/)?(www\.)?bsky\.app", output):
@@ -101,3 +109,7 @@ async def clean(resp: Resp):
     
     jsonout= '{output:"' + output + '"}'
     return output
+
+
+handler = Mangum(app)
+
