@@ -1,184 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SuperURL</title>
-    <style>
-      body {
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        text-align: center;
-      }
-    </style>
-  </head>
-
-  <body onload="getShortcut()">
-    <h1>SuperURL</h1>
-    <br />
-
-    <form id="form">
-      <input type="text" placeholder="enter url here" id="url" name="url" />
-      <br />
-      <input type="checkbox" id="clean" name="clean" value="1" checked />
-      <label for="clean">Clean URLs (remove trackers)</label><br />
-      <input type="checkbox" id="fix" name="fix" value="1" checked />
-      <label for="fix">fix embeds</label><br />
-
-      <div>Twitter embed settings</div>
-      <input
-        type="radio"
-        id="twitter_format_0"
-        name="twitter_format"
-        value="0"
-        checked
-      />
-      <label for="0">default</label>
-
-      <input
-        type="radio"
-        id="twitter_format_1"
-        name="twitter_format"
-        value="1"
-      />
-      <label for="1">Text only</label>
-
-      <input
-        type="radio"
-        id="twitter_format_2"
-        name="twitter_format"
-        value="2"
-      />
-      <label for="2">No text (just user and media)</label>
-
-      <input
-        type="radio"
-        id="twitter_format_3"
-        name="twitter_format"
-        value="3"
-      />
-      <label for="3">Media only</label>
-
-      <div>Instagram embed settings</div>
-      <input
-        type="radio"
-        id="instagram_format_0"
-        name="instagram_format"
-        value="0"
-        checked
-      />
-      <label for="0">default</label>
-
-      <input
-        type="radio"
-        id="instagram_format_1"
-        name="instagram_format"
-        value="1"
-      />
-      <label for="1">No text (just user and media)</label>
-
-      <input
-        type="radio"
-        id="instagram_format_2"
-        name="instagram_format"
-        value="2"
-      />
-      <label for="2">Media only</label>
-
-      <div>Pixiv embed settings</div>
-
-      <label for="pixiv_index">Pixiv image/page number</label>
-      <input
-        type="number"
-        id="pixiv_index"
-        name="pixiv_index"
-        min="1"
-        max="100"
-        value="1"
-      />
-      <br />
-      <br />
-      <br />
-      <button type="button" onclick="sendFormPostRequest()">
-        "Get new URL"
-      </button>
-    </form>
-    <br />
-    <!--output gets set in sendFormPostRequest(), shortcut gets set by getShortcut() -->
-    <div id="output"></div>
-    <div id="shortcut"></div>
-    <footer> 
-    
-
-    <p>
-      <a href="https://github.com/toxin-x/SuperURL">Source Code<a> | <a>Terms of Service (TBA)</a> | <a>Privacy Policy (TBA)</a>
-    </p>
-
-    <footer>
-
-
-    <script>
-      function sendFormPostRequest() {
-        const form = document.getElementById("form");
-        const formData = new FormData(form);
-        var object = {};
-        formData.forEach((value, key) => (object[key] = value));
-        var json = JSON.stringify(object);
-        console.log(json);
-        fetch("/api/clean", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: json,
-        })
-          .then((response) => {
-            // Handle the response from the server
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SuperURL</title>
+        <style>
+            body {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
             }
-            return response.json(); // Assuming the response is in JSON format
-          })
-          .then((data) => {
-            // Do something with the response data
-            document.getElementById("output").innerHTML =
-              "<div>Output:</div> <a href='" + data + "'>" + data + "</a>";
-            console.log(data);
-          })
-          .catch((error) => {
-            // Handle any errors
-            console.error(
-              "There has been a problem with your fetch operation:",
-              error
-            );
-          });
-      }
-
-      function getShortcut() {
-        fetch("/api/shortcut")
-          .then((response) => {
-            // Handle the response from the server
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
+        </style>
+    </head>
+    <body onload="getShortcut()">
+        <h1>SuperURL</h1>
+        <br />
+        <form id="form">
+            <input type="text" placeholder="enter url here" id="url" name="url" />
+            <br />
+            <br />
+            <input type="checkbox" id="clean" name="clean" value="1" checked />
+            <label for="clean">Clean URLs (remove trackers)</label><br /> <!--maybe add an ⓘ that either links to embedinfo-->
+            <input type="checkbox" id="fix" name="fix" value="1" checked />
+            <label for="fix">fix embeds</label><br />
+            <br />
+            <div>Twitter embed settings</div>
+            <input
+                type="radio"
+                id="twitter_format_0"
+                name="twitter_format"
+                value="0"
+                checked
+                />
+            <label for="0">default</label>
+            <input
+                type="radio"
+                id="twitter_format_1"
+                name="twitter_format"
+                value="1"
+                />
+            <label for="1">Text only</label>
+            <input
+                type="radio"
+                id="twitter_format_2"
+                name="twitter_format"
+                value="2"
+                />
+            <label for="2">No text (just user and media)</label>
+            <input
+                type="radio"
+                id="twitter_format_3"
+                name="twitter_format"
+                value="3"
+                />
+            <label for="3">Media only</label>
+            <br /><br />
+            <div>Instagram embed settings</div>
+            <input
+                type="radio"
+                id="instagram_format_0"
+                name="instagram_format"
+                value="0"
+                checked
+                />
+            <label for="0">default</label>
+            <input
+                type="radio"
+                id="instagram_format_1"
+                name="instagram_format"
+                value="1"
+                />
+            <label for="1">No text (just user and media)</label>
+            <input
+                type="radio"
+                id="instagram_format_2"
+                name="instagram_format"
+                value="2"
+                />
+            <label for="2">Media only</label>
+            <br /><br />
+            <div>Pixiv embed settings</div>
+            <label for="pixiv_index">Pixiv image/page number</label>
+            <input
+                type="number"
+                id="pixiv_index"
+                name="pixiv_index"
+                min="1"
+                max="100"
+                value="1"
+                />
+            <br />
+            <br />
+            <br />
+            <button type="button" onclick="sendFormPostRequest()">
+            Get new URL
+            </button>
+        </form>
+        <br />
+        <!--output gets set in sendFormPostRequest(), shortcut gets set by getShortcut() -->
+        <div id="output"></div>
+        <br />
+        <div id="shortcut"></div>
+        <div id="info">
+          <div id="embedinfo">
+            <h3>Embed providers:</h3>
+            <div>Twitter/X embeds are fixed by <a href="https://FxTwitter.com">FxTwitter</a></div>
+            <div>Instagram embeds are fixed by <a href="https://ddinstagram.com/">InstaFix</a><div>
+            <div>Reddit embeds are fixed by <a href="https://rxddit.com/">Rxddit</a><div>
+            <div>Tiktok embeds are fixed by <a href="https://vxtiktok.com">VxTokTok</a><div>
+            <div>Bluesky embeds are fixed by <a href="https://bskyx.app">VixBluesky</a><div>
+            <div>Pixiv embeds are fixed bt <a href="https://github.com/thelaao/phixiv">Phixiv</a><div>
+          </div>
+          <br />
+          <div id="cleaninginfo">
+            <div>URLs are cleaned using <a href="https://github.com/ClearURLs/Rules">ClearURLs's rules</a> and <a href="https://github.com/walterl/uroute">Uroute's parser</a><div>
+          <div>
+        <footer>
+        <p>
+            <a href="https://github.com/toxin-x/SuperURL">Source Code<a> | <a>Terms of Service (TBA)</a> | <a>Privacy Policy (TBA)</a>
+        </p>
+        <footer>
+        <script>
+            function sendFormPostRequest() {
+              const form = document.getElementById("form");
+              const formData = new FormData(form);
+              var object = {};
+              formData.forEach((value, key) => (object[key] = value));
+              var json = JSON.stringify(object);
+              console.log(json);
+              fetch("/api/clean", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: json,
+              })
+                .then((response) => {
+                  // Handle the response from the server
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                  // set the output div's contents to "output": and an anchor to the new link
+                  document.getElementById("output").innerHTML =
+                    "<div>Output:</div> <a href='" + data + "'>" + data + "</a>"; 
+                  console.log(data);
+                })
+                .catch((error) => {
+                  // Handle any errors
+                  console.error(
+                    "There has been a problem with your fetch operation:",
+                    error
+                  );
+                });
             }
-            return response.json(); // Assuming the response is in JSON format
-          })
-          .then((data) => {
-            document.getElementById("shortcut").innerHTML = "<div>Get the iOS shortcut!:</div> <a href='" + data["ios-link"] + "'>" + data["ios.link"] + "</a>";
-            console.log(data);
-          })
-          .catch((error) => {
-            // Handle any errors
-            console.error(
-              "There has been a problem with your fetch operation:",
-              error
-            );
-          });
-      }
-    </script>
-  </body>
+            
+            function getShortcut() {
+              fetch("/api/shortcut")
+                .then((response) => {
+                  // Handle the response from the server
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  return response.json(); // Assuming the response is in JSON format
+                })
+                .then((data) => {
+                  //adds the shortcut
+                  document.getElementById("shortcut").innerHTML = "<div>Get the iOS shortcut!:</div> <a href='" + data["ios-link"] + "'>" + data["ios.link"] + "</a>";
+                  console.log(data);
+                })
+                .catch((error) => {
+                  // Handle any errors
+                  console.error(
+                    "There has been a problem with your fetch operation:",
+                    error
+                  );
+                });
+            }
+        </script>
+    </body>
 </html>
