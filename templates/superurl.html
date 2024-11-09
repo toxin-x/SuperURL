@@ -6,17 +6,12 @@
         <title>SuperURL</title>
         <style>
             body {
-            margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            text-align: center;
+                padding: 70px 0;
+                text-align: center;
             }
         </style>
     </head>
-    <body onload="getShortcut()">
+    <body>
         <h1>SuperURL</h1>
         <br />
         <form id="form">
@@ -104,7 +99,8 @@
         <!--output gets set in sendFormPostRequest(), shortcut gets set by getShortcut() -->
         <div id="output"></div>
         <br />
-        <div id="shortcut"></div>
+        <div id="shortcut"><a href="{{iosLink}}">Get the iOS shortcut!</a>
+        </div>
         <div id="info">
           <div id="embedinfo">
             <h3>Embed providers:</h3>
@@ -121,7 +117,7 @@
           <div>
         <footer>
         <p>
-            <a href="https://github.com/toxin-x/SuperURL">Source Code<a> | <a>Terms of Service (TBA)</a> | <a>Privacy Policy (TBA)</a>
+            <a  href="https://github.com/toxin-x/SuperURL/issues">Issues and requests</a> | <a href="https://github.com/toxin-x/SuperURL">Source Code<a> | <a>Terms of Service (TBA)</a> | <a>Privacy Policy (TBA)</a>
         </p>
         <footer>
         <script>
@@ -161,28 +157,6 @@
                 });
             }
             
-            function getShortcut() {
-              fetch("/api/shortcut")
-                .then((response) => {
-                  // Handle the response from the server
-                  if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                  }
-                  return response.json(); // Assuming the response is in JSON format
-                })
-                .then((data) => {
-                  //adds the shortcut
-                  document.getElementById("shortcut").innerHTML = "<div>Get the iOS shortcut!:</div> <a href='" + data["ios-link"] + "'>" + data["ios.link"] + "</a>";
-                  console.log(data);
-                })
-                .catch((error) => {
-                  // Handle any errors
-                  console.error(
-                    "There has been a problem with your fetch operation:",
-                    error
-                  );
-                });
-            }
         </script>
     </body>
 </html>
