@@ -11,6 +11,8 @@ from mangum import Mangum
 app = FastAPI()
 
 
+shortcuts = {"ios-version":1, "ios-link": "https://icloud.com/shortcuts/a73f1afef8cb4479b3d361199ebeabae"}
+
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -41,7 +43,7 @@ async def refresh_rules():
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
     return templates.TemplateResponse(
-        request=request, name="superurl.html"
+        request=request, name="superurl.html", context={"iosLink": shortcuts["ios-link"]}
     )
 
 
@@ -50,7 +52,7 @@ async def root(request: Request):
 
 @app.get("/api/shortcut")
 async def shortcut():
-    return {"ios-version":0.1, "ios-link": "N/A"}
+    return shortcuts
 
 @app.post("/api/clean")
 async def clean(resp: Resp):
@@ -91,7 +93,7 @@ async def clean(resp: Resp):
         #d = media only, g = media and @only, 
         elif re.search(r"^(https?:\/\/)?(www\.)?instagram\.com", output):
             instagram_format = ["", "g.", "d."]
-            output = re.sub(r"instagram\.com", f"{instagram_format[resp.instagram_format]}ddisntagram.com", output, 1)
+            output = re.sub(r"instagram\.com", f"{instagram_format[resp.instagram_format]}ddinstagram.com", output, 1)
     #reddit
         elif re.search(r"^(https?:\/\/)?(www\.)?reddit\.com", output):
             output = re.sub(r"reddit\.com", "rxddit.com", output, 1)
