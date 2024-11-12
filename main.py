@@ -86,7 +86,7 @@ async def clean(resp: Resp):
             output = re.sub(r"x\.com", f"{ twitter_format[resp.twitter_format]}fxtwitter.com", output, 1)
         
         elif re.search(r"^(https?:\/\/)?(www\.)?twitter\.com", output):
-            output = re.sub(r"x\.com", f"{twitter_format[resp.twitter_format]}fxtwitter.com", output, 1)
+            output = re.sub(r"twitter\.com", f"{twitter_format[resp.twitter_format]}fxtwitter.com", output, 1)
 
     #instagram
         
