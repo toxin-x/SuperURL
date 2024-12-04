@@ -27,7 +27,7 @@ jobs:
       - name: add deps to zip
         run: |
             cd .venv/lib
-            zip -r ../main.zip *
+            zip -r ../../main.zip *
 
 
       - name: Setup AWS CLI
