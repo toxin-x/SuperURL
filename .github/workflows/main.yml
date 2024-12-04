@@ -13,7 +13,6 @@ jobs:
       - name: zip repository
         run: |
           zip -r main.zip .
-          ls -lah
 
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
@@ -31,7 +30,6 @@ jobs:
           # Upload the updated zip to S3
           aws s3 cp main.zip s3://$S3_BUCKET/$S3_KEY
           # Update Lambda function code
-          aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME
-          --s3-bucket $S3_BUCKET --s3-key $S3_KEY
+          aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --s3-bucket $S3_BUCKET --s3-key $S3_KEY
           # Cleanup
           rm main.zip
