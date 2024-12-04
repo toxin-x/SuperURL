@@ -23,11 +23,15 @@ jobs:
             python3 -m venv .venv
             source .venv/bin/activate
             pip install fastapi[standard] pydantic mangum typing
-      
-      - name: add deps to zip
-        run: |
-            cd $(pip show fastapi | grep -i "^Location:" | awk '{print $2}')
+            PPATH=$(pip show fastapi | grep -i "^Location:" | awk '{print $2}')
+            echo $PPATH
+            cd $PPATH
+            
             zip -r ../../../../main.zip *
+      
+    #   - name: add deps to zip
+    #     run: |
+
 
 
       - name: Setup AWS CLI
