@@ -50,7 +50,7 @@ jobs:
           # Upload the updated zip to S3
           aws s3 cp main.zip s3://$S3_BUCKET/$S3_KEY
       - name: upload zip to lambda 
-      - run: |
+        run: |
           S3_BUCKET=superurldata
           S3_KEY=main.zip
           LAMBDA_FUNCTION_NAME=superurl
