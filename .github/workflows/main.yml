@@ -22,12 +22,11 @@ jobs:
         run: |
             python3 -m venv .venv
             source .venv/bin/activate
-
+            pip install fastapi[standard] pydantic mangum
       
       - name: add deps to zip
         run: | 
             source .venv/bin/activate
-            pip install fastapi[standard] pydantic mangum typing
             PPATH=$(pip show fastapi | grep -i "^Location:" | awk '{print $2}')
             echo "packages path:" $PPATH
             cd $PPATH
