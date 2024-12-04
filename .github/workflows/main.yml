@@ -18,18 +18,18 @@ jobs:
       
       - name: install python 
         uses: actions/setup-python@v5
-
-        
       - name: install python deps
         run: |
             python3 -m venv .venv
             source .venv/bin/activate
-            pip install fastapi[standard] pydantic mangum typing
+
       
       - name: add deps to zip
         run: | 
+            source .venv/bin/activate
+            pip install fastapi[standard] pydantic mangum typing
             PPATH=$(pip show fastapi | grep -i "^Location:" | awk '{print $2}')
-            echo $PPATH
+            ls $PPATH
             cd $PPATH
             zip -r ../../../../main.zip *
 
