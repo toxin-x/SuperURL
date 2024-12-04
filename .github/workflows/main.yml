@@ -18,9 +18,9 @@ jobs:
       
       - name: install python 
         uses: actions/setup-python@v5
+
+        
       - name: install python deps
-      
-      - name: install deps 
         run: |
             python3 -m venv .venv
             source .venv/bin/activate
