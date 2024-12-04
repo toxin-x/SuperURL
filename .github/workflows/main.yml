@@ -13,6 +13,22 @@ jobs:
       - name: zip repository
         run: |
           zip -r main.zip .
+          ls -lah
+      
+      
+      - name: install python 
+        uses: actions/setup-python@v5
+      - name: install python deps
+        run: |
+            python3 -m venv .venv
+            source .venv/bin/activate
+            pip install fastapi[standard] pydantic mangum typing
+      
+      - name: add deps to zip
+        run: |
+            cd .venv/lib
+            zip -r ../main.zip *
+
 
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
@@ -33,3 +49,6 @@ jobs:
           aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --s3-bucket $S3_BUCKET --s3-key $S3_KEY
           # Cleanup
           rm main.zip
+
+
+
