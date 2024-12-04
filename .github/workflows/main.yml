@@ -22,11 +22,11 @@ jobs:
         run: |
             python3 -m venv .venv
             source .venv/bin/activate
-            pip install fastapi[standard] pydantic mangum typing
+
       
       - name: add deps to zip
         run: | 
-            source .venv/bin/activate
+            pip install fastapi[standard] pydantic mangum typing
             PPATH=$(pip show fastapi | grep -i "^Location:" | awk '{print $2}')
             ls $PPATH
             cd $PPATH
@@ -41,7 +41,7 @@ jobs:
           aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
           aws-region: us-east-1
       
-      - name: Deploy Modified Files
+      - name: upload to s3
         run: |
           # Constants
           S3_BUCKET=superurldata
@@ -49,7 +49,9 @@ jobs:
           LAMBDA_FUNCTION_NAME=superurl
           # Upload the updated zip to S3
           aws s3 cp main.zip s3://$S3_BUCKET/$S3_KEY
+      - name: upload zip to lambda 
           # Update Lambda function code
+        run: |
           aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --s3-bucket $S3_BUCKET --s3-key $S3_KEY
           # Cleanup
           rm main.zip
