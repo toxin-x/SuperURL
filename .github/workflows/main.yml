@@ -26,8 +26,8 @@ jobs:
       
       - name: add deps to zip
         run: |
-            cd .venv/lib
-            zip -r ../../main.zip *
+            cd $(pip show fastapi | grep -i "^Location:" | awk '{print $2}')
+            zip -r ../../../../main.zip *
 
 
       - name: Setup AWS CLI
