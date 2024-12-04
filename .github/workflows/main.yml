@@ -14,7 +14,7 @@ jobs:
         run: |
           zip -r main.zip .
           ls -lah
-      
+          echo "zip path:" $(realpath . )
       
       - name: install python 
         uses: actions/setup-python@v5
@@ -26,6 +26,7 @@ jobs:
       
       - name: add deps to zip
         run: | 
+            source .venv/bin/activate
             pip install fastapi[standard] pydantic mangum typing
             PPATH=$(pip show fastapi | grep -i "^Location:" | awk '{print $2}')
             echo "packages path:" $PPATH
@@ -51,6 +52,7 @@ jobs:
           LAMBDA_FUNCTION_NAME=superurl
           # Upload the updated zip to S3
           aws s3 cp main.zip s3://$S3_BUCKET/$S3_KEY
+      
       - name: upload zip to lambda 
         run: |
           S3_BUCKET=superurldata
