@@ -1,0 +1,55 @@
+name: Check for new rules
+on:
+  schedule:
+      # once a day, at 8:15 ET
+    - cron:  '15 13 * * *'
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check for new Rules
+        run: |
+          #get hash of origin's rules
+          wget https://rules2.clearurls.xyz/rules.minify.hash
+          #get hash of current rules
+          rulessum=$(sha256sum rules.json | cut -d ' ' -f 1) 
+          #if hashes aren't the same
+          if ["$(echo rules.minify.hash)" != "$rulessum"]; 
+              then
+                  #download new data
+                  wget -O rules.json https://rules2.clearurls.xyz/data.minify.json
+                  #get hash of new rules
+                  newsum=$(sha256sum rules.json | cut -d ' ' -f 1)
+                  #compare new hash with origin's hash
+                  if ["$(echo rules.minify.hash)" == "$newsum"]; 
+                      then #succeded to download
+                          
+                          git config --global user.name 'Toxin_X (AUTO)'
+                          git config --global user.email '109931081+toxin-x@users.noreply.github.com'
+
+                          git add rules.json
+                          
+                          git commit -m "(AUTO) Updated rules.json"
+                          
+                          git checkout master
+
+                          git push origin master
+
+                          echo "Rules updated!"
+                          exit 0
+
+                      else #!failed to download, die with error 
+                          echo "New rules not downloaded"
+                          exit 1
+                  fi
+              else #! hash is the same, die with success
+
+                echo "No new rules"
+                exit 0
+          fi
+
+
+
+
+          
