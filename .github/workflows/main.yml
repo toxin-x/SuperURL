@@ -28,9 +28,11 @@ jobs:
         run: | 
             pip install fastapi[standard] pydantic mangum typing
             PPATH=$(pip show fastapi | grep -i "^Location:" | awk '{print $2}')
-            ls $PPATH
+            echo "packages path:" $PPATH
             cd $PPATH
-            zip -r ../../../../main.zip *
+            ROOTP=../../../../main.zip
+            echo "zip path:" $(realpath $ROOTP)
+            zip -r $ROOTP *
 
 
 
@@ -55,6 +57,7 @@ jobs:
           S3_KEY=main.zip
           LAMBDA_FUNCTION_NAME=superurl
           # Update Lambda function code
+          sleep
           aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME --s3-bucket $S3_BUCKET --s3-key $S3_KEY
           # Cleanup
           rm main.zip
