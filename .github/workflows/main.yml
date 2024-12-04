@@ -1,18 +1,45 @@
-name: deploy to lambda
-on: [push]
+name: Deploy Python Lambda
+'on':
+  push:
+    branches:
+      - main
 jobs:
-  deploy_source:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: zip
-        uses: montudor/action-zip@v0.1.0
+      - name: Checkout Repository
+        uses: actions/checkout@v2
         with:
-          args: zip -qq -r ./bundle.zip ./
-      - name: default deploy
-        uses: appleboy/lambda-action@master
+          fetch-depth: 2
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: us-east-1
-          function_name: superurl
-          zip_file: bundle.zip
+          aws-access-key-id: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+          aws-region: us-east-1
+      - name: Deploy Modified Files
+        run: >
+          # Constants
+
+          S3_BUCKET=superurldata
+
+          S3_KEY=main.zip
+
+          LAMBDA_FUNCTION_NAME=superurl
+
+          # Download the existing zip from S3
+
+          wget https://github.com/toxin-x/SuperURL/archive/refs/heads/main.zip
+
+          # Upload the updated zip to S3
+
+          aws s3 cp main.zip s3://$S3_BUCKET/$S3_KEY
+
+          # Update Lambda function code
+
+          aws lambda update-function-code --function-name $LAMBDA_FUNCTION_NAME
+          --s3-bucket $S3_BUCKET --s3-key $S3_KEY
+
+          # Cleanup
+
+          rm main.zip
