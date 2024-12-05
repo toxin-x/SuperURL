@@ -22,7 +22,7 @@ jobs:
         run: |
             python3 -m venv .venv
             source .venv/bin/activate
-            pip install --platform manylinux2014_x86_64 --target=package --implementation cp fastapi[standard] pydantic mangum
+            pip install --platform manylinux2014_x86_64 --target=package --implementation cp --only-binary=:all: --upgrade fastapi[standard] pydantic mangum
       
       - name: add deps to zip
         run: | 
@@ -63,5 +63,11 @@ jobs:
           # Cleanup
           rm main.zip
 
+      - name: publish new lambda version
+      run: |
+      LAMBDA_FUNCTION_NAME=superurl
+      # Update Lambda function code
+      sleep 30
+      aws lambda publish-version --function-name $LAMBDA_FUNCTION_NAME
 
 
