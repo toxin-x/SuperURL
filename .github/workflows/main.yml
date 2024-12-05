@@ -65,9 +65,7 @@ jobs:
 
       - name: publish new lambda version
         run: |
-        LAMBDA_FUNCTION_NAME=superurl
-        # Update Lambda function code
         sleep 30
-        aws lambda publish-version --function-name $LAMBDA_FUNCTION_NAME
+        aws lambda publish-version --function-name superurl
 
 
