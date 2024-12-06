@@ -63,9 +63,9 @@ jobs:
           # Cleanup
           rm main.zip
 
-      - name: publish new lambda version
-        run: |
-          sleep 30
-          aws lambda publish-version --function-name superurl
+      # - name: publish new lambda version
+      #   run: |
+      #     sleep 30
+      #     aws lambda publish-version --function-name superurl
 
 
