@@ -33,7 +33,6 @@ jobs:
             cd package
             ls -lah
             ROOTP= ../main.zip
-            echo "zip path:" $(realpath $ROOTP)
             zip -r $ROOTP *
 
 
