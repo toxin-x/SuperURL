@@ -32,7 +32,7 @@ jobs:
             source .venv/bin/activate
             ls -lah
             cd package
-            ROOTP= ./main.zip
+            ROOTP= main.zip
             echo "zip path:" $(realpath $ROOTP)
             ls -lah $ROOTP | grep main.zip
             zip -r $ROOTP *
