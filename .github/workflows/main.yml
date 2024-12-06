@@ -13,7 +13,7 @@ jobs:
       - name: zip repository
         run: |
           zip -r main.zip .
-          chmod main.py 777
+          chmod 777 main.zip
       
       - name: install python 
         uses: actions/setup-python@v5
