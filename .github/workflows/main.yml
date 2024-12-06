@@ -30,6 +30,7 @@ jobs:
       - name: add deps to zip
         run: | 
             source .venv/bin/activate
+            ls -lah
             cd package
             ROOTP= ../main.zip
             echo "zip path:" $(realpath $ROOTP)
