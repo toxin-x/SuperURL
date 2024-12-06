@@ -18,11 +18,15 @@ jobs:
       
       - name: install python 
         uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+          
       - name: install python deps
         run: |
             python3 -m venv .venv
             source .venv/bin/activate
-            pip install fastapi[all] mangum
+            pip install --platform manylinux2014_x86_64 --target=package --implementation cp --python-version 3.12 --only-binary=:all: --upgrade fastapi[all] mangum
       - name: add deps to zip
         run: | 
             source .venv/bin/activate
