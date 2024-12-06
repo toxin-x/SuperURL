@@ -13,8 +13,7 @@ jobs:
       - name: zip repository
         run: |
           zip -r main.zip .
-          ls -lah
-          echo "zip path:" $(realpath . )
+          chmod main.py 777
       
       - name: install python 
         uses: actions/setup-python@v5
