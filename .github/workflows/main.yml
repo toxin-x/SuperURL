@@ -30,12 +30,10 @@ jobs:
       - name: add deps to zip
         run: | 
             source .venv/bin/activate
-            pip list
-            PPATH=$(pip show fastapi | grep -i "^Location:" | awk '{print $2}')
-            echo "packages path:" $PPATH
-            cd $PPATH
-            ROOTP=../../../../main.zip
+            cd package
+            ROOTP= ../main.zip
             echo "zip path:" $(realpath $ROOTP)
+            ls -lah $ROOTP | grep main.zip
             zip -r $ROOTP *
 
 
