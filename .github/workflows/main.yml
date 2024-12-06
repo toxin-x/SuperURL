@@ -35,7 +35,6 @@ jobs:
             ls -lah
             ROOTP= ../main.zip
             echo "zip path:" $(realpath $ROOTP)
-            ls -lah $ROOTP | grep main.zip
             zip -r $ROOTP *
 
 
