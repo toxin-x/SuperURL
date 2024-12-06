@@ -32,8 +32,7 @@ jobs:
             ls -lah
             cd package
             ls -lah
-            ROOTP= ../main.zip
-            zip -r $ROOTP *
+            zip -r ../main.zip *
 
 
 
