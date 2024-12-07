@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
 
           
-      - name: install python deps
+      - name: install python deps and add to zip
         run: |
             python3 -m venv .venv
             source .venv/bin/activate

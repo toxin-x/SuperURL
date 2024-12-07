@@ -1,504 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta content="SuperURL" property="og:title">
-      <meta content="Remove trackers and fix embeds" property="og:description" />
-      <title>SuperURL</title>
-      <!-- <link href="./style.css" rel="stylesheet" type="text/css" media="all"> css -->
-      <!-- icons -->
-      <style>
-         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-         :root
-         {
-         --bg-color-rgb:0, 11, 36;
-         --bg-color: RGB(var(--bg-color-rgb));
-         --text-color: white;
-         --accent-color-rgb: 49, 244, 186;
-         --accent-color: RGB(var(--accent-color-rgb));
-         accent-color:(var(--accent-color));
-         --err-color-rgb: 255, 26, 85;
-         --err-color: RGB(var(--err-color-rgb));
-         }
-         ::selection
-         {
-         background: RGBA(var(--accent-color-rgb), 0.75);
-         color: var(--bg-color);
-         }
-         body
-         {
-         /*Stop Scrolling*/
-         margin: 0;
-         padding: 0;
-         /*Text*/
-         font-size:20px;
-         text-align: center;
-         background-color: var(--bg-color);
-         color: var(--text-color);
-         }
-         body, input, button
-         {
-         font-family: "Lora", serif;
-         font-optical-sizing: auto;
-         }
-         #content
-         {
-         text-align: center;
-         height: fit-content;
-         width: 70%;
-         margin: auto;
-         margin-top: 50px;
-         }
-         header
-         {
-         top:0px;
-         text-align: center;
-         margin:10px;
-         width: calc(100vw - 26px);
-         border: var(--accent-color) solid 3px;
-         border-radius: 10px;
-         background-color: var(--bg-color);
-         }
-         #shortcut
-         {
-         display: inline-block;
-         }
-         #nav
-         {
-         padding-bottom:50px;
-         * {
-         display:inline-block;
-         }
-         }
-         /*FORM*/
-         #url
-         {
-         display: block;
-         margin: auto;
-         margin-bottom: 20px;
-         font-size: 20px;
-         text-align: center;
-         border: var(--accent-color) solid 2px;
-         border-radius: 5px;
-         background-color: transparent;
-         color: var(--accent-color);
-         }
-         #url:focus-visible, #pixiv_index:focus-visible, #submit:not(:disabled):hover, #copy:hover:not(:disabled)
-         {
-         box-shadow: 0px 0px 5px 1px RGBA(var(--accent-color-rgb),0.75);
-         outline: 0;
-         }
-         *.err
-         {
-         border-color: var(--err-color) !important;
-         }
-         *.err:focus-visible
-         {
-         box-shadow: 0px 0px 5px 1px RGBA(var(--err-color-rgb),0.75) !important;
-         }
-         #url::placeholder
-         {
-         opacity: 50%;
-         }
-         #submit:not(:disabled):active, #copy:active:not(:disabled)
-         {
-         box-shadow: 0px 0px 7px 3px RGBA(var(--accent-color-rgb),1);
-         }
-         input[type=radio], input[type=radio] + label, input[type=checkbox], input[type=checkbox] + label
-         {
-         cursor: pointer;
-         }
-         input[type=radio]:checked + label, input[type=checkbox]:checked + label
-         {
-         color: var(--accent-color);
-         }
-         .form-group
-         {
-         margin: 0 20px;
-         display:inline-block;
-         }
-         #info
-         {
-         margin-top: 50px;
-         font-size: 17px;
-         }
-         .expand-btn
-         {
-         background-color: transparent !important; 
-         border-width: 0 !important;
-         font-size: 20px;
-         margin-left: 10px;
-         cursor: pointer;
-         color: white;
-         }
-         #submit
-         {
-         display:block;
-         font-size:20px;
-         margin: auto;
-         text-align: center;
-         margin-top: 25px;
-         background-color: var(--accent-color);
-         color: var(--bg-color);
-         border: var(--accent-color) solid 2px;
-         outline: 0;
-         border-radius: 5px;
-         padding: 5px;
-         }
-         #submit:disabled, #copy:disabled
-         {
-         border: var(--accent-color) solid 2px;
-         background-color: var(--bg-color);
-         color: var(--accent-color);
-         cursor:not-allowed;
-         }
-         h3, h4
-         {
-         margin-bottom: 0;
-         padding-bottom: 5px;
-         }
-         #credits-heading
-         {
-         margin-top:25px;
-         }
-         footer
-         {
-         width: calc(100vw - 26px);
-         margin: 10px;
-         border: var(--accent-color) solid 3px;
-         border-radius: 10px;
-         background-color: var(--bg-color);
-         height: fit-content;
-         align-self: end;
-         position: absolute;
-         }
-         a
-         {
-         color: var(--accent-color);
-         }
-         a:hover
-         {
-         text-shadow: 0px 0px 3px RGBA(var(--accent-color-rgb), 1);
-         }
-         input[type=radio], input[type=checkbox]
-         {
-         appearance: none;
-         border: var(--accent-color) solid 2px;
-         width: 20px;
-         height: 20px;
-         display:inline-block;
-         position:relative;
-         border-radius: 5px;
-         top:3px;
-         }
-         input[type=radio]
-         {
-         border-radius: 50%;
-         }
-         input[type=radio]:checked, input[type=checkbox]:checked
-         {
-         background-color: var(--accent-color);
-         }
-         input[type=radio]:hover, input[type=checkbox]:hover
-         {
-         box-shadow: 0px 0px 3px 1px RGBA(var(--accent-color-rgb), 0.75);
-         }
-         #pixiv_index
-         {
-         font-size: 20px;
-         text-align: center;
-         border: var(--accent-color) solid 2px;
-         border-radius: 5px;
-         background-color: transparent;
-         color: var(--accent-color);
-         -moz-appearance:textfield;
-         appearance: textfield;
-         }
-         #settings-url input[type=radio], input[type=checkbox]
-         {
-         top: 6px;
-         }
-         .settings
-         {
-         height: fit-content;
-         }
-         #output-container
-         {
-         border: var(--accent-color) solid 2px;
-         border-radius: 5px;
-         max-width: 500px;
-         width: 50%;
-         padding: 0px 10px;
-         margin: auto;
-         margin-top: 25px;
-         display: inline-block;
-         position: relative;
-         }
-         #output
-         {
-         text-wrap: nowrap;
-         overflow: hidden;
-         }
-         #placeholder
-         {
-         color: var(--accent-color);
-         opacity: 50%;
-         pointer-events: none;
-         user-select: none;
-         }
-         #copy
-         {
-         font-size: 20px;
-         display: inline-block;
-         position: relative;
-         top: -5px;
-         text-align: center;
-         background-color: var(--accent-color);
-         color: var(--bg-color);
-         border: var(--accent-color) solid 2px;
-         outline: 0;
-         border-radius: 5px;
-         }
-      </style>
-      <link rel="stylesheet" 
-         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-   </head>
-   <body>
-      <header>
-         <h1 id="title">SuperURL</h1>
-         <div id="nav">
-            <div id="shortcut"><a href="{{iosLink}}">Get the iOS shortcut!</a></div>
-            &#8226; 
-            <a href="https://github.com/toxin-x/SuperURL">Source Code</a> &#8226;
-            <a href="https://github.com/toxin-x/SuperURL/issues">Issues & Feature Requests </a>         
-            <!--  
-               &#8226;
-               <a>Terms of Service (TBA)</a> &#8226;  
-               <a>Privacy Policy (TBA)</a> 
-               -->
-         </div>
-      </header>
-      <div id="content">
-         <form id="form">
-            <!-- URL INPUT -->
-            <input type="text" placeholder="Enter URL here" id="url" name="url" />
-            <h4>General Settings</h4>
-            <span id="settings-url" class="section">
-               <span class="form-group">
-                  <input type="checkbox" id="clean" name="clean" value="1" checked />
-                  <label for="clean">Remove Trackers</label> <!--maybe add an ⓘ that either links to embedinfo-->
-               </span>
-               <span class="form-group">
-               <input type="checkbox" id="fix" name="fix" value="1" checked />
-               <label for="fix">Fix embeds</label>
-               </span>
-            </span>
-            <h4>
-            <i class="fa-brands fa-twitter"></i> Twitter Embed Settings<span onclick="expand(this)" id="settings-twitter-expand" class="expand-btn" for="settings-twitter"><i class="fa fa-solid fa-caret-down"></i></span></h3>
-            <span id="settings-twitter" class="seciton" hidden>
-            <span class="form-group">
-            <input type="radio" id="twitter_format_0" name="twitter_format" value="0" checked />
-            <label for="twitter_format_0">Default</label>
-            </span>
-            <span class="form-group">
-            <input type="radio" id="twitter_format_1" name="twitter_format" value="1" />
-            <label for="twitter_format_1">Text only</label>
-            </span>
-            <span class="form-group">
-            <input type="radio" id="twitter_format_2" name="twitter_format" value="2" />
-            <label for="twitter_format_2">User & media only</label>
-            </span>
-            <span class="form-group">
-            <input type="radio" id="twitter_format_3" name="twitter_format" value="3" />
-            <label for="twitter_format_3">Media only</label>
-            </span>
-            </span>
-            <h4><i class="fa fa-brands fa-instagram"></i> Instagram embed settings <span onclick="expand(this)" id="settings-insta-expand" class="expand-btn" for="settings-insta"><i class="fa fa-solid fa-caret-down"></i></span></h4>
-            <span id="settings-insta" class="section" hidden>
-            <span class="form-group">
-            <input type="radio" id="instagram_format_0" name="instagram_format" value="0" checked />
-            <label for="instagram_format_0">Default</label>
-            </span>
-            <span class="form-group">
-            <input type="radio" id="instagram_format_1" name="instagram_format" value="1" />
-            <label for="instagram_format_1">User & media only</label>
-            </span>
-            <span class="form-group">
-            <input type="radio" id="instagram_format_2" name="instagram_format" value="2" />
-            <label for="instagram_format_2">Media only</label>
-            </span>
-            </span>
-            <h4><i class="fa fa-brands fa-pixiv"></i> Pixiv embed settings <span onclick="expand(this)" id="settings-pixiv-expand" class="expand-btn" for="settings-pixiv"><i class="fa fa-solid fa-caret-down"></i></span></h4>
-            <span id="settings-pixiv" class="section" hidden>
-            <span class="form-group">
-            <label for="pixiv_index">Image / Page number</label>
-            <input type="number" id="pixiv_index" name="pixiv_index" min="1" max="100" value="1" />
-            </span>
-            </span>
-            <button disabled id="submit" type="button" onclick="sendFormPostRequest()">
-            Get new URL
-            </button>
-         </form>
-         <!--output gets set in sendFormPostRequest(), shortcut gets set by getShortcut() -->
-         <div id="output-container">
-            <div id="output">
-               <span id="placeholder">Enter a URL above</span>
-            </div>
-         </div>
-         <button id="copy" onclick="copy()" disabled>
-         <i class="fa fa-solid fa-copy"></i>
-         </button>
-         <h3 id="credits-heading">Credits<button onclick="expand(this)" id="info-expand" class="expand-btn" for="info"><i class="fa fa-solid fa-caret-down"></i></button></h3>
-         <span id="info" hidden>
-            <span id="embedinfo">
-               <h4 style=>Embed Providers</h4>
-               <div><i class="fa-brands fa-twitter"></i> Twitter/X embeds are fixed by <a href="https://FxTwitter.com">FxTwitter</a></div>
-               <div><i class="fa fa-brands fa-instagram"></i> Instagram embeds are fixed by <a href="https://ddinstagram.com/">InstaFix</a></div>
-               <div><i class="fa fa-brands fa-reddit-alien"></i> Reddit embeds are fixed by <a href="https://rxddit.com/">Rxddit</a></div>
-               <div><i class="fa fa-brands fa-tiktok"></i> Tiktok embeds are fixed by <a href="https://vxtiktok.com">VxTokTok</a></div>
-               <div><i class="fa fa-brands fa-bluesky"></i> Bluesky embeds are fixed by <a href="https://bskyx.app">VixBluesky</a></div>
-               <div><i class="fa fa-brands fa-pixiv"></i> Pixiv embeds are fixed bt <a href="https://github.com/thelaao/phixiv">Phixiv</a></div>
-            </span>
-            <span id="cleaninginfo">
-               <h4>Cleaning Info</h4>
-               <div>URLs are cleaned using <a href="https://github.com/ClearURLs/Rules">ClearURLs's rules</a> and <a
-                  href="https://github.com/walterl/uroute">Uroute's parser</a></div>
-            </span>
-         </span>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SuperURL</title>
+
+  <link href="./style.css" rel="stylesheet" type="text/css" media="all"> <!-- css -->
+  <!-- icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></head>
+
+  
+<body>
+  <header>
+    <h1 id="title">SuperURL</h1>
+
+    <div id="nav">
+        <div id="shortcut"><a href="{{iosLink}}">Get the iOS shortcut!</a></div> &#8226; 
+        <a href="https://github.com/toxin-x/SuperURL">Source Code</a> &#8226;
+        <a href="https://github.com/toxin-x/SuperURL/issues">Issues and Requests</a>
+    </div>
+  </header>
+
+  <button onclick="toggleThemer(this)" value="false" id="change-theme"><i class="fa-solid fa-palette"></i></button>
+
+  <div hidden id="themer">
+    <h4 style="margin: 0; padding: 0">Change Theme</h4>
+    <span class="form-group">
+      <input onclick="toggleLight()" class="theme-input" type="checkbox" id="light-dark" name="themer" value="0" />
+      <label for="light-dark" id ="cur-theme"></label>
+
+    </span>
+    <span class="form-group">
+      <button hidden onclick = "clearColor()" id="clear-color"><i class="fa-solid fa-x"></i></button>
+      <input class="theme-input" id="color-pick" type="color">
+      <label for="color-pick" id ="cur-theme">Accents</label>
+    </span>
+
+  </div>
+
+  <div id="content">
+    <form id="form">
+
+      <!-- URL INPUT -->
+      <input type="text" placeholder="Enter URL here" id="url" name="url" />
+
+      <h4>General Settings</h4>
+      <span id="settings-url" class="section">
+        <span class="form-group">
+          <input type="checkbox" id="clean" name="clean" value="1" checked />
+          <label for="clean">Remove Trackers</label> <!--maybe add an ⓘ that either links to embedinfo-->
+        </span>
+        <span class="form-group">
+          <input type="checkbox" id="fix" name="fix" value="1" checked />
+          <label for="fix">Fix embeds</label>
+        </span>
+      </span>
+
+      <h4 onclick="expand(document.getElementById('settings-twitter-expand'))"><span class="section-head"><i class="fa-brands fa-twitter"></i> Twitter Embed Settings</span><span id="settings-twitter-expand" class="expand-btn" for="settings-twitter"><i class="fa fa-solid fa-caret-down"></i></span></h3>
+      
+        <span id="settings-twitter" class="seciton" hidden>
+        <span class="form-group">
+          <input type="radio" id="twitter_format_0" name="twitter_format" value="0" checked />
+          <label for="twitter_format_0">Default</label>
+        </span>
+        <span class="form-group">
+          <input type="radio" id="twitter_format_1" name="twitter_format" value="1" />
+          <label for="twitter_format_1">Text only</label>
+        </span>
+        <span class="form-group">
+          <input type="radio" id="twitter_format_2" name="twitter_format" value="2" />
+          <label for="twitter_format_2">User & media only</label>
+        </span>
+        <span class="form-group">
+          <input type="radio" id="twitter_format_3" name="twitter_format" value="3" />
+          <label for="twitter_format_3">Media only</label>
+        </span>
+      </span>
+
+      <h4 onclick="expand(document.getElementById('settings-insta-expand'))"><span class="section-head"><i class="fa fa-brands fa-instagram"></i> Instagram embed settings</span> <span id="settings-insta-expand" class="expand-btn" for="settings-insta"><i class="fa fa-solid fa-caret-down"></i></span></h4>
+      <span id="settings-insta" class="section" hidden>
+        <span class="form-group">
+          <input type="radio" id="instagram_format_0" name="instagram_format" value="0" checked />
+          <label for="instagram_format_0">Default</label>
+        </span>
+        <span class="form-group">
+          <input type="radio" id="instagram_format_1" name="instagram_format" value="1" />
+          <label for="instagram_format_1">User & media only</label>
+        </span>
+        <span class="form-group">
+          <input type="radio" id="instagram_format_2" name="instagram_format" value="2" />
+          <label for="instagram_format_2">Media only</label>
+        </span>
+      </span>
+
+      <h4 onclick="expand(document.getElementById('settings-pixiv-expand'))"><span class="section-head"><i class="fa fa-brands fa-pixiv"></i> Pixiv embed settings</span> <span id="settings-pixiv-expand" class="expand-btn" for="settings-pixiv"><i class="fa fa-solid fa-caret-down"></i></span></h4>
+      <span id="settings-pixiv" class="section" hidden>
+        <span class="form-group">
+          <label for="pixiv_index">Image / Page number</label>
+          <input type="number" id="pixiv_index" name="pixiv_index" min="1" max="100" value="1" />
+        </span>
+      </span>
+
+      <button disabled id="submit" type="button" onclick="sendFormPostRequest()">
+        Get new URL
+      </button>
+    </form>
+
+    <!--output gets set in sendFormPostRequest(), shortcut gets set by getShortcut() -->
+    <div id="output-container"> 
+      <div id="output">
+        <span id="placeholder">Enter a URL above</span>
       </div>
-      <script>
-         /**
-         * @param {HTMLElement} btn button that triggrred the event
-         * button attributes: onclick="expand(this)" id="[ID]-expand" class="expand-btn" for="[ID]" (where ID is the id of the element to expand/ collapse on click)
-         * button inner-HTML: use icon "fa fa-solid fa-carat-down"
-         */
-         function expand(btn)
-         {
-          const id = btn.getAttribute("for");
-          const target = document.getElementById(id);
-          
-          if(target == null)
-            return;
-            
-          let hidden = !target.hidden;
-          target.hidden = hidden;
-          
-          var icon = btn.innerHTML;
-          if(hidden)
-          {
-            icon =icon.replace('up', 'down');
-          }
-          else
-          {
-            icon = icon.replace('down', 'up');
-          }
-            
-          btn.innerHTML = icon;
-         }
-         
-         let reg = /(https|http):\/\/(\S){1,}\.(\S){1,}/
-         let urlBox = document.getElementById("url");
-         let submit = document.getElementById("submit");
-         
-         urlBox.addEventListener("input", (event) => 
-         {
-         
-            let val = urlBox.value;
-         
-            let matches =  reg.test(val);
-            let encoded = encodeURI(val) == val;
-         
-            if(matches && encoded) //valid
-            {
-                submit.disabled = false;
-                urlBox.classList.remove("err")
-            }
-            else
-            {
-                submit.disabled = true;
-                urlBox.classList.add("err")
-            }
-         });
-         
-         let pixNum = document.getElementById("pixiv_index");
-         pixNum.addEventListener("input", (event) => 
-         {
-            let val = parseInt(pixNum.value);
-         
-            console.log(val);
-         
-            if(isNaN(val) || val < 1)
-            {
-                submit.disabled = true;
-                pixNum.classList.add("err")
-            }
-            else
-            {
-                submit.disabled = false;
-                pixNum.classList.remove("err")
-            }
-            
-         });
-         
-         function copy()
-         {
-          var copyText = (document.getElementById("clean-url")).innerText;
-          navigator.clipboard.writeText(copyText);
-         }
-      </script>
-      <script>
-         /*document.body.onload = (event) => 
-         {
-             getShortcut();
-         };*/
-         
-         function sendFormPostRequest()
-         {
-             const form = document.getElementById("form");
-         
-             const formData = new FormData(form); //Grabs data
-             var object = {};
-         
-             // Iterates through formData ==> adds to dictionary
-             formData.forEach((value, key) => (object[key] = value));
-         
-             var json = JSON.stringify(object);
-             console.log(json);
-         
-             //Fetches something?
-             fetch("/api/clean",
-             {
-               method: "POST",
-               headers:
-               {
-                 "Content-Type": "application/json",
-               },
-               body: json,
-             }).then((response) =>
-             {
-                 // Handle the response from the server
-                 if (!response.ok)
-                 {
-                     throw new Error("Network response was not ok");
-                 }
-                 return response.json(); // Assuming the response is in JSON format
-             }).then((data) =>
-             {
-                 // set the output div's contents to "output": and an anchor to the new link
-                 document.getElementById("output").innerHTML = `<a id="clean-url" href ='${data}'> ${data} </a>`
-                 console.log(data);
-             }).catch((error) =>
-             {
-                 // Handle any errors
-                 console.error("There has been a problem with your fetch operation:", error);
-             });
-             
-         
-             document.getElementById("copy").disabled = false;
-         
-           }
-           
-      </script>
-   </body>
+    </div>
+    <button id="copy" onclick="copy()" disabled>
+      <i class="fa fa-solid fa-copy"></i>
+    </button>
+
+    <h3 onclick="expand(document.getElementById('info-expand'))" id="credits-heading" class="section-head">Credits<button id="info-expand" class="expand-btn" for="info"><i class="fa fa-solid fa-caret-down"></i></button></h3>
+    <span id="info" hidden>
+      <span id="embedinfo">
+        <h4 style=>Embed Providers</h4>
+        <div><i class="fa-brands fa-twitter"></i> Twitter/X embeds are fixed by <a href="https://FxTwitter.com">FxTwitter</a></div>
+        <div><i class="fa fa-brands fa-instagram"></i> Instagram embeds are fixed by <a href="https://ddinstagram.com/">InstaFix</a></div>
+        <div><i class="fa fa-brands fa-reddit-alien"></i> Reddit embeds are fixed by <a href="https://rxddit.com/">Rxddit</a></div>
+        <div><i class="fa fa-brands fa-tiktok"></i> Tiktok embeds are fixed by <a href="https://vxtiktok.com">VxTokTok</a></div>
+        <div><i class="fa fa-brands fa-bluesky"></i> Bluesky embeds are fixed by <a href="https://bskyx.app">VixBluesky</a></div>
+        <div><i class="fa fa-brands fa-pixiv"></i> Pixiv embeds are fixed bt <a href="https://github.com/thelaao/phixiv">Phixiv</a></div>
+      </span>
+      <span id="cleaninginfo">
+
+        <h4>Cleaning Info</h4>
+        <div>URLs are cleaned using <a href="https://github.com/ClearURLs/Rules">ClearURLs's rules</a> and <a
+            href="https://github.com/walterl/uroute">Uroute's parser</a></div>
+      </span>
+    </span>
+  </div>
+
+  <script src="./framework.js"></script>
+  <script src="./script.js"></script>
+
+</body>
+
 </html>

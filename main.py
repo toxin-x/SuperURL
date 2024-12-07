@@ -14,7 +14,7 @@ app = FastAPI()
 shortcuts = {"ios-version":1, "ios-link": "https://icloud.com/shortcuts/a73f1afef8cb4479b3d361199ebeabae"}
 
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+
 templates = Jinja2Templates(directory="templates")
 
 class Resp(BaseModel):
@@ -112,6 +112,6 @@ async def clean(resp: Resp):
     jsonout= '{output:"' + output + '"}'
     return output
 
-
+app.mount("/", StaticFiles(directory="static"), name="static")
 handler = Mangum(app)
 

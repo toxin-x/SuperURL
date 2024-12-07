@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+:root
+{
+    --bg-color-rgb: 17, 17, 33;
+    --bg-color: RGB(var(--bg-color-rgb));
+
+    --text-color-rgb: 255, 255, 255;
+    --text-color: RGB(var(--text-color-rgb));
+
+    --accent-color-rgb: 13, 255, 207;
+    --accent-color: RGB(var(--accent-color-rgb));
+    accent-color:(var(--accent-color));
+
+    --err-color-rgb: 255, 26, 85;
+    --err-color: RGB(var(--err-color-rgb));
+}
+
+::selection
+{
+    background: RGBA(var(--accent-color-rgb), 0.75);
+    color: var(--bg-color);
+}
+
+
+body
+{
+
+    /*Stop Scrolling*/
+    margin: 0;
+    padding: 0;
+
+    /*Text*/
+    font-size:20px;
+    text-align: center;
+
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+body, input, button
+{
+    font-family: "Lora", serif;
+    font-optical-sizing: auto;
+}
+
+#content
+{
+
+    text-align: center;
+
+    height: fit-content;
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+
+}
+
+header
+{
+    top:0px;
+
+    text-align: center;
+
+    margin:10px;
+    width: calc(100vw - 26px);
+
+    border: var(--accent-color) solid 3px;
+    border-radius: 10px;
+    background-color: var(--bg-color);
+}
+
+#shortcut
+{
+    display: inline-block;
+}
+
+#nav
+{
+    padding-bottom:50px;
+}
+
+/*FORM*/
+#url
+{
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+
+    font-size: 20px;
+    text-align: center;
+    border: var(--accent-color) solid 2px;
+    border-radius: 5px;
+
+    background-color: transparent;
+    color: var(--accent-color);
+}
+#url:focus-visible, #pixiv_index:focus-visible, #submit:not(:disabled):hover, #copy:hover:not(:disabled)
+{
+    box-shadow: 0px 0px 5px 1px RGBA(var(--accent-color-rgb),0.75);
+    outline: 0;
+}
+
+#url:hover, #pixiv_index:hover
+{
+    box-shadow: 0px 0px 5px 1px RGBA(var(--accent-color-rgb),0.75);
+
+}
+
+*.err
+{
+    border-color: var(--err-color) !important;
+}
+
+*.err:focus-visible
+{
+    box-shadow: 0px 0px 5px 1px RGBA(var(--err-color-rgb),0.75) !important;
+}
+
+#url::placeholder
+{
+    opacity: 50%;
+}
+
+#submit:not(:disabled):active, #copy:active:not(:disabled)
+{
+    box-shadow: 0px 0px 7px 3px RGBA(var(--accent-color-rgb),1);
+}
+
+
+input[type=radio], input[type=radio] + label, input[type=checkbox], input[type=checkbox] + label, input[type=color]
+{
+    cursor: pointer;
+}
+
+input[type=radio]:checked + label, input[type=checkbox]:checked + label
+{
+    color: var(--accent-color);
+}
+
+.form-group
+{
+    margin: 0 20px;
+    display: inline-block;
+}
+
+#info
+{
+    margin-top: 50px;
+    font-size: 17px;
+}
+
+.expand-btn
+{
+    background-color: transparent !important; 
+    border-width: 0 !important;
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+#submit
+{
+    display:block;
+    font-size:20px;
+    margin: auto;
+    text-align: center;
+    margin-top: 25px;
+
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: var(--accent-color) solid 2px;
+    outline: 0;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#submit:disabled, #copy:disabled
+{
+    border: var(--accent-color) solid 2px;
+    background-color: var(--bg-color);
+    color: var(--accent-color);
+    cursor:not-allowed;
+}
+
+h3, h4
+{
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+#credits-heading
+{
+    margin-top:25px;
+}
+
+footer
+{
+
+    width: calc(100vw - 26px);
+    margin: 10px;
+
+    border: var(--accent-color) solid 3px;
+    border-radius: 10px;
+    background-color: var(--bg-color);
+
+    height: fit-content;
+    align-self: end;
+    position: absolute;
+}
+
+a
+{
+    color: var(--accent-color);
+}
+
+input[type=radio]:hover + label, input[type=checkbox]:hover + label
+{
+    text-shadow: 0px 0px 3px RGBA(var(--text-color-rgb), 1);
+}
+
+a:hover, input[type=radio]:checked:hover + label, input[type=checkbox]:checked:hover + label
+{
+    text-shadow: 0px 0px 3px RGBA(var(--accent-color-rgb), 1);
+}
+
+input[type=radio], input[type=checkbox]
+{
+    appearance: none;
+    border: var(--accent-color) solid 2px;
+    width: 20px;
+    height: 20px;
+
+    display:inline-block;
+    position:relative;
+    border-radius: 5px;
+
+    top:3px;
+}
+
+input[type=radio]
+{
+    border-radius: 50%;
+}
+
+input[type=radio]:checked, input[type=checkbox]:checked
+{
+    background-color: var(--accent-color);
+}
+
+input[type=radio]:hover, input[type=checkbox]:hover
+{
+    box-shadow: 0px 0px 3px 1px RGBA(var(--accent-color-rgb), 0.75);
+
+}
+
+#pixiv_index
+{
+    font-size: 20px;
+    text-align: center;
+    border: var(--accent-color) solid 2px;
+    border-radius: 5px;
+
+    background-color: transparent;
+    color: var(--accent-color);
+
+    -moz-appearance:textfield;
+    appearance: textfield;
+}
+
+#settings-url input[type=radio], input[type=checkbox]
+{
+    top: 6px;
+}
+
+.settings
+{
+    height: fit-content;
+}
+
+#output-container
+{
+    border: var(--accent-color) solid 2px;
+    border-radius: 5px;
+
+    max-width: 500px;
+    width: 50%;
+    padding: 0px 10px;
+    margin: auto;
+    margin-top: 25px;
+    display: inline-block;
+    position: relative;
+}
+
+#output
+{
+    text-wrap: nowrap;
+    overflow: hidden;
+}
+
+#placeholder
+{
+    color: var(--accent-color);
+    opacity: 50%;
+    pointer-events: none;
+    user-select: none;
+}
+
+#copy
+{
+    font-size: 20px;
+    display: inline-block;
+    position: relative;
+    top: -5px;
+
+    text-align: center;
+
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: var(--accent-color) solid 2px;
+    outline: 0;
+    border-radius: 5px;
+}
+
+.section-head:hover, h4:hover .expand-btn i,  .section-head:hover .expand-btn i
+{
+    cursor: pointer;
+    text-shadow: 0px 0px 5px RGBA(var(--text-color-rgb), 0.7);
+}
+
+#change-theme
+{
+    display:block;
+    position:fixed;
+    top:0px;
+    margin: 25px;
+
+    font-size:25px;
+    text-align: center;
+    margin-top: 25px;
+
+    background-color: var(--text-color);
+    opacity: 0.75;
+    color: var(--bg-color);
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    padding: 5px;
+
+    width: 40px;
+    height: 40px;
+}
+
+#change-theme:hover
+{
+    box-shadow: 0px 0px 5px 1px RGBA(var(--text-color-rgb),0.75);
+    outline: 0;
+    opacity:0.8;
+}
+
+#change-theme:active
+{
+    box-shadow: 0px 0px 7px 3px RGBA(var(--text-color-rgb),1);
+    opacity: 0.9;
+}
+
+#change-theme[value="true"]
+{
+    opacity: 0.9;
+}
+
+#themer
+{
+    display:block;
+    position:fixed;
+    left: 55px;
+    top: 0px;
+
+    margin: 25px;
+
+    background-color: RGBA(var(--text-color-rgb), 0.9);
+    color: var(--bg-color);
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    padding: 20px;
+
+}
+
+#themer .form-group
+{
+    display: block;
+    margin-top: 20px;
+}
+
+#themer input[type=checkbox]
+{
+    --accent-color-rgb: 255, 255, 255;
+    --accent-color: RGB(var(--bg-color-rgb));
+}
+
+#themer label
+{
+    color: var(--bg-color) !important;
+}
+
+#themer input[type=checkbox]:hover
+{
+    box-shadow: 0px 0px 3px 1px RGBA(var(--bg-color-rgb), 0.75);
+}
+
+#clear-color
+{
+    border: 0;
+    font-size: 20px;
+    position: relative;
+    top: -2px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent !important;
+}
+
+#clear-color i
+{
+    color: var(--bg-color);
+}
+
+#clear-color:hover i
+{
+    cursor: pointer;
+    color: var(--err-color);
+    text-shadow: 0px 0px 5px RGBA(var(--err-color-rgb), 0.7);
+}
+
+#color-pick:hover
+{
+    box-shadow: 0px 0px 5px 1px RGBA(var(--bg-color-rgb),0.75);
+    outline: 0;
+}
+
+#color-pick
+{
+    appearance: none;
+    border: var(--bg-color) solid 2px;
+    border-radius: 5px;
+    background-color: var(--accent-color);
+    height: 30px;
+    width: 30px;
+}
+
+#color-pick::-webkit-color-swatch
+{
+    opacity: 0;
+
+}
+  #color-pick::-moz-color-swatch
+{
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.theme-input:hover + label
+{
+    text-shadow: 0px 0px 3px RGBA(var(--bg-color-rgb), 1) !important;
+}
+
+[hidden], [hidden] *
+{
+    display: none !important;
+}
