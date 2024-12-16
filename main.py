@@ -79,7 +79,7 @@ async def clean(resp: Resp):
         try:
             archived = httpx.get("http://web.archive.org/save/" + output)
         except:
-            archived = "potentially saved, however archive.org did not respond"
+            archived = "status unknown, archive.org did not respond"
     else:
         archived = "N/A"
     if resp.fix:
