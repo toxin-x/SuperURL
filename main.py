@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
+import httpx
 from fastapi.templating import Jinja2Templates
 import re
 from typing import Optional
@@ -72,6 +73,11 @@ async def clean(resp: Resp):
             output = re.sub("comment/", "-", output, 1)
             
 
+    if  resp.archive:
+        output = re.sub(r"https?:\/\/", "", output, 1)
+        archived = httpx.get("http://web.archive.org/save/" + output)
+    else:
+        archived = "N/A"
     if resp.fix:
         output = re.sub(r"www\.", "", output, 1)
     #twitter
@@ -109,8 +115,9 @@ async def clean(resp: Resp):
         elif re.search(r"^(https?:\/\/)?(www\.)?bsky\.app", output):
             output = re.sub(r"bsky\.app", "bskyx.app", output, 1)
     
-    jsonout= '{output:"' + output + '"}'
-    return output
+    
+    jsonout= '{output:"' + output + '", archived: "' + archived + '"}'
+    return jsonout
 
 app.mount("/", StaticFiles(directory="static"), name="static")
 handler = Mangum(app)

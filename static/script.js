@@ -16,7 +16,7 @@ function sendFormPostRequest() {
     var json = JSON.stringify(object);
     console.log(json);
 
-    //Fetches something?
+    //Fetches cleaned url
     fetch("/api/clean",
         {
             method: "POST",
