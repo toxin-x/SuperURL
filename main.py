@@ -22,6 +22,7 @@ class Resp(BaseModel):
     url: str
     clean: Optional[int] = 0
     fix: Optional[int] = 0
+    archive: Optional[int] = 0
     
     # twitter specific settings 
     # twitter_fixer: Optional[int] = 0 #which service to use 
