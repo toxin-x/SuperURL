@@ -17,7 +17,7 @@ function sendFormPostRequest() {
     console.log(json);
 
     //Fetches cleaned url
-    fetch("/api/clean",
+    fetch("./api/clean",
         {
             method: "POST",
             headers:
