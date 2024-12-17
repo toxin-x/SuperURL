@@ -75,12 +75,11 @@ async def clean(resp: Resp):
             
 
     if  resp.archive:
-        output = re.sub(r"https?:\/\/", "", output, 1)
         try:
-            arch = httpx.get("http://web.archive.org/save/" + output, timeout=1)
-            archived = arch.text 
+            httpx.get("http://web.archive.org/save/" + output, timeout=0.1)
+            archived = "Sent link to archive.org*"
         except:
-            archived = "status unknown, archive.org did not respond"
+            archived = "status unknown"
     else:
         archived = "N/A"
     if resp.fix:
