@@ -33,10 +33,11 @@ function sendFormPostRequest() {
             return response.json(); // Assuming the response is in JSON format
         }).then((data) => {
             // set the output div's contents to "output": and an anchor to the new link
-            document.getElementById("output").innerHTML = `<a id="clean-url" href ='${data["output"]}'> ${data["output"]} </a>`
-            if (data["archived"] != "N/A"){
-                document.getElementById("output").innerHTML = `${data["archived"]}`
-            }
+            data2 = JSON.parse(data)
+            document.getElementById("output").innerHTML = `<a id="clean-url" href ='${data2["output"]}'> ${data2["output"]} </a>`
+            // if (data["archived"] != "N/A"){
+            //     document.getElementById("output").innerHTML = `${data["archived"]}`
+            // }
             console.log(data);
         }).catch((error) => {
             // Handle any errors

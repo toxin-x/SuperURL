@@ -120,7 +120,7 @@ async def clean(resp: Resp):
             output = re.sub(r"bsky\.app", "bskyx.app", output, 1)
     
     
-    jsonout= '{output:"' + output + '", archived: "' + archived + '"}'
+    jsonout= '{"output":"' + output + '", "archived": "' + archived + '"}'
     return jsonout
 
 app.mount("/", StaticFiles(directory="static"), name="static")
