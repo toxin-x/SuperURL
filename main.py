@@ -12,7 +12,7 @@ from mangum import Mangum
 app = FastAPI()
 
 
-shortcuts = {"ios-version":1, "ios-link": "https://icloud.com/shortcuts/a73f1afef8cb4479b3d361199ebeabae"}
+shortcuts = {"ios-version":1.1, "ios-link": "https://www.icloud.com/shortcuts/f813edf47f7946888be538f3f0fa553a"}
 
 
 
